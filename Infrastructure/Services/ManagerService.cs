@@ -29,6 +29,28 @@ public class ManagerService
             }
         }
     }
+
+     public async Task<Response<DepartmentManager>> AddDepartmentManager(DepartmentManager employee)
+    {
+        // Add Quotess to database
+        using (var connection = _context.CreateConnection())
+        {
+            try
+            {
+                string sql = $"insert into Department_employee (ManagerId,DepartmentId,FromDate) values ({employee.EmployeeId},{employee.DepartmentId},'{employee.FromDate}') returning id";
+                var id = await connection.ExecuteScalarAsync<int>(sql);
+                employee.EmployeeId = id;
+                return new Response<DepartmentManager>(employee);
+            }
+            catch (Exception ex)
+            {
+                return new Response<DepartmentManager>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+
+        }
+    }
+
     
 }
 
