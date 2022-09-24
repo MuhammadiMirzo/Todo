@@ -1,6 +1,13 @@
+using Infrastructure.DataContext;
+using Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<DataContext>();
+builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<ManagerService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
